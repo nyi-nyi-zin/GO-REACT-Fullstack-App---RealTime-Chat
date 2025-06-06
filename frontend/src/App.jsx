@@ -1,12 +1,28 @@
-import { useState } from 'react'
-import './App.css'
+import ChatHistory from './components/ChatHistory/ChatHistory'
+import Header from './components/Header/Header'
+import ChatInput from './components/ChatInput/ChatInput'
+import './index.css'
+import {connect,sendMsg} from './api'
+import { useEffect, useState } from 'react'
 
 function App() {
-  const [count, setCount] = useState(0)
+ 
+  
+  useEffect(()=>{
+    connect((msg) =>{
+      console.log('New Message');
+       setChatHistory(prev => [...prev, msg])
+      console.log(chatHistory)
+    })
+  },[])
+
+ 
 
   return (
     <>
-      
+      <Header/>
+      <ChatHistory chatHistory={chatHistory}/>
+      <ChatInput send={send}/>
     </>
   )
 }
